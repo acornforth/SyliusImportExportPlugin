@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace FriendsOfSylius\SyliusImportExportPlugin\Exporter\Transformer\Handler;
 
 use FriendsOfSylius\SyliusImportExportPlugin\Exporter\Transformer\Handler;
+use NumberFormatter;
 
 final class IntegerToMoneyFormatHandler extends Handler
 {
@@ -28,7 +29,7 @@ final class IntegerToMoneyFormatHandler extends Handler
      */
     protected function process($key, $value): ?string
     {
-        return money_format($this->format, $value / 100);
+        return (new NumberFormatter())->formatCurrency($this->format, $value / 100);
     }
 
     protected function allows($key, $value): bool
